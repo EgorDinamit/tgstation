@@ -1285,8 +1285,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	To use it - stab someone with it and then inject yourself, you will transform into that person. \n \
 	Be aware that it can't be used more than once on yourself."
 	item = /obj/item/adv_mulligan
-	cost = 7
+	cost = 5
 	surplus = 18
+	include_modes = list(/datum/game_mode/traitor/infiltrator) //It's only for infiltrators, 'cuz of low-cost.
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
@@ -1973,18 +1974,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list("Station Engineer")
 
 ////////////// INFILTRATION GAMEMODE ITEMS //////////////
-#define INFILTRATION_FACTIONS list("Syndicate Infiltrator", "Cybersun Infiltrator", "Gorlex Infiltrator", "Tiger Co. Infiltrator", "MI13 Infiltrator")
-//This define exists for midround spawned infiltrators and dynamic mode.
 
 /datum/uplink_item/role_restricted/cybersunsuit
 	name = "Cybersun Hardsuit"
 	desc = "A long forgotten hardsuit made by Cybersun industries. \
-			Offers ROBUST protection against laser-based weapons, while still giving somewhat good chances \
+			Offers ROBUST protection against laser-based weapons, while giving quite bad chances \
 			to survive assault from a toolbox or shotgun. \
 			Not to mention, it doesn't slow you down and contains an integrated jetpack that runs on standard tanks."
 	item = /obj/item/clothing/suit/space/hardsuit/cybersun
 	cost = 10
 	restricted_roles = list("Cybersun Infiltrator")
+	cant_discount = FALSE
 
 /datum/uplink_item/role_restricted/glovesplus
 	name = "Combat Gloves Plus"
@@ -1993,6 +1993,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/gloves/krav_maga/combatglovesplus
 	cost = 5 //Same as nuke ops.
 	restricted_roles = list("Gorlex Infiltrator")
+	cant_discount = FALSE
 
 /datum/uplink_item/role_restricted/flukeop
 	name = "Nuclear Operative Bundle"
@@ -2000,7 +2001,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	Comes with a tactical duffelbag filled with: \
 	blood-red hardsuit, micro-bomb implant, night vision googles, bowman headset, combat gloves and Makarov pistol."
 	item = /obj/item/storage/backpack/duffelbag/syndie/flukeop
-	cost = 15
+	cost = 16
 	restricted_roles = list("Gorlex Infiltrator")
 
 /datum/uplink_item/role_restricted/tiger/macrobomb
@@ -2018,6 +2019,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/spawnergrenade/manhacks
 	cost = 6
 	restricted_roles = list("Tiger Co. Infiltrator")
+	cant_discount = FALSE
 
 // Pointless
 /datum/uplink_item/badass

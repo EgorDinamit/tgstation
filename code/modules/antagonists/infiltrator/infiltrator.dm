@@ -5,7 +5,7 @@
 	special_role = ROLE_INFILTRATOR
 	job_rank = "Syndicate Infiltrator"
 	should_give_codewords = FALSE //They already get syndicate comms for this.
-	var/hijack_chance = 15 //Some corps are more stealthier, but standard chance is high.
+	var/hijack_chance = 10 //Some corps are more or less stealthier.
 	var/dagd_chance = 5 //Why would you infiltrate the station and die here?
 	var/kill_chance = 70
 	var/obj_mod = 0 //Number of additional objectives that are not affected by config, but by faction
@@ -42,7 +42,8 @@
 	else
 		owner.current.forceMove(pick(GLOB.infiltrator_start))
 
-	owner.current.reagents.add_reagent(/datum/reagent/medicine/leporazine, 30) //Fool-Proof: They won't just die in space due to thermal regulator being turned off.
+	owner.current.reagents.add_reagent(/datum/reagent/medicine/leporazine, 30) //Fool-Proof: They won't just die in space \
+	due to thermal regulator being turned off.
 
 /datum/antagonist/traitor/infiltrator/proc/equip_agent()
 	var/mob/living/carbon/human/H = owner.current
@@ -53,7 +54,13 @@
 	if(CONFIG_GET(flag/infiltrator_give_codespeak))
 		H.grant_language(/datum/language/codespeak, TRUE, TRUE, LANGUAGE_MIND)
 	if(faction == "Random")
-		faction = pickweight(list("Syndicate" = CONFIG_GET(number/infiltrator_faction_syndicate), "Cybersun" = CONFIG_GET(number/infiltrator_faction_cybersun), "Gorlex" = CONFIG_GET(number/infiltrator_faction_gorlex), "Tiger Co." = CONFIG_GET(number/infiltrator_faction_tiger), "MI13" = CONFIG_GET(number/infiltrator_faction_mi)))
+		faction = pickweight(list(\
+		"Syndicate" = CONFIG_GET(number/infiltrator_faction_syndicate), \
+		"Cybersun" = CONFIG_GET(number/infiltrator_faction_cybersun), \
+		"Gorlex" = CONFIG_GET(number/infiltrator_faction_gorlex), \
+		"Tiger Co." = CONFIG_GET(number/infiltrator_faction_tiger), \
+		"MI13" = CONFIG_GET(number/infiltrator_faction_mi)))
+
 	owner.assigned_role = "[faction] Infiltrator"
 
 	switch(faction)
@@ -88,7 +95,8 @@
 		InfilFit.uniform = /obj/item/clothing/under/plasmaman
 		InfilFit.gloves = /obj/item/clothing/gloves/color/plasmaman/black
 		InfilFit.l_pocket = /obj/item/tank/internals/plasmaman/belt/full
-		InfilFit.backpack_contents = list(/obj/item/storage/box/survival=1, /obj/item/tank/jetpack/oxygen/harness=1, /obj/item/clothing/head/helmet/space/plasmaman=1)
+		InfilFit.backpack_contents = list(/obj/item/storage/box/survival=1, /obj/item/tank/jetpack/oxygen/harness=1, \
+		/obj/item/clothing/head/helmet/space/plasmaman=1)
 
 	H.equipOutfit(InfilFit) //Equip final outfit
 
@@ -181,12 +189,14 @@
 			add_objective(steal_objective)
 
 /datum/antagonist/traitor/infiltrator/admin_add(datum/mind/new_owner,mob/admin)
-	var/faction_t = input("What kind of infiltrator?", "Infiltrator") as null|anything in list("Random","Syndicate","Cybersun","Gorlex", "Tiger Co.", "MI13")
+	var/faction_t = input("What kind of infiltrator?", "Infiltrator") as null|anything in \
+	list("Random", "Syndicate", "Cybersun", "Gorlex", "Tiger Co.", "MI13")
+
 	if(faction_t in list("Random","Syndicate","Cybersun","Gorlex", "Tiger Co.", "MI13"))
 		faction = faction_t
 	else
 		return
 	new_owner.special_role = ROLE_INFILTRATOR
 	new_owner.add_antag_datum(src)
-	message_admins("[key_name_admin(admin)] has turned [key_name_admin(new_owner)] into [faction] Infiltrator.")
-	log_admin("[key_name(admin)] has turned [key_name(new_owner)] into [faction] Infiltrator.")
+	message_admins("[key_name_admin(admin)] has turned [key_name_admin(new_owner)] into [faction_t] Infiltrator.")
+	log_admin("[key_name(admin)] has turned [key_name(new_owner)] into [faction_t] Infiltrator.")

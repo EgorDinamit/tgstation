@@ -6,7 +6,7 @@
 	false_report_weight = 10
 	enemy_minimum_age = 7
 	antag_datum = /datum/antagonist/traitor/infiltrator
-	traitor_name = "Syndicate Infiltrator"
+	traitor_name = "infiltrator"
 
 	announce_span = "danger"
 	announce_text = "There are Syndicate agents about to infiltrate the station!\n\
